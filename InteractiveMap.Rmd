@@ -1,0 +1,37 @@
+---
+title: "Interactive Map"
+author: "Balázs Srancsik"
+date: "8 December 2017"
+output: html_document
+---
+
+## Current date is 8th of December, 2017
+
+## Creating data frame with GPS coordinates of neighbors 
+
+```{r neighborGPS}
+
+neighbors <- data.frame(
+  lng=c(19.1311829999999,19.1309229999999,19.131302,19.130887,19.1311604,19.1314429999999,19.1312339999999,19.131064,19.131226),
+  lat=c(47.561619,47.561417,47.561709,47.561706,47.5619013,47.561822,47.561979,47.561526,47.561603),
+    name=c("We live here","Ági: My daughter's aunt","István: The Handyman","Ani: Pensioner, nice person","Laci: The Pharmacist","The Butcher: who can not park cars properly","The Steel Worker: Nice and helpful","Gyuri: I have not seen him for 4 years now","Ruby: Our cat, has an own house"))
+
+head(neighbors,10)  
+```
+
+## Our neighbors are living here (Rendering map of GPS coordinates)
+```{r rendermap}
+library(leaflet)
+
+
+
+neighbors <- leaflet() %>%
+  setView(19.1311829999999, 47.561619,47.561417, zoom = 17) %>%
+  addTiles() %>%  # Add default OpenStreetMap map tiles
+  addMarkers(lng=neighbors$lng, lat=neighbors$lat, popup=neighbors$name)
+
+
+
+neighbors  # Print the map
+```
+
